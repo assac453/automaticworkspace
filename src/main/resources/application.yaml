@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: automatedworkstation
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    username: test
+    password: ae9623
+
+
+
