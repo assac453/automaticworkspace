@@ -13,8 +13,7 @@ create table clients
     passport             varchar(10)    not null,
     family_status        boolean        not null,
     registration_address varchar(255)   not null,
-    contact_phone        varchar(11)    not null,
-    request_amount       decimal(12, 2) not null
+    contact_phone        varchar(11)    not null
 );
 
 create table employment_info
