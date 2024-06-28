@@ -20,14 +20,8 @@ public class Client {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "first_name", nullable = false)
-    private String firstName;
-
-    @Column(name = "last_name", nullable = false)
-    private String lastName;
-
-    @Column(name = "middle_name", nullable = false)
-    private String middleName;
+    @Column(name = "fio", nullable = false)
+    private String fio;
 
     @Column(name = "passport", nullable = false, length = 10)
     private String passport;
