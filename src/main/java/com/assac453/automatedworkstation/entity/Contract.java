@@ -26,7 +26,6 @@ public class Contract {
     @Column(name = "signed_status", nullable = false)
     private Boolean signedStatus;
 
-    @ManyToOne
-    @JoinColumn(name = "request_id", nullable = false)
+    @OneToOne(mappedBy = "contract")
     private Request request;
 }

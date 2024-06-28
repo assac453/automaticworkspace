@@ -34,7 +34,9 @@ public class Request {
     @JoinColumn(name = "client_id", nullable = false)
     private Client client;
 
-    @OneToMany(mappedBy = "request", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Contract> contracts;
+    @OneToOne
+    @JoinColumn(name = "contract_id", nullable = false)
+    private Contract contract;
+
 
 }

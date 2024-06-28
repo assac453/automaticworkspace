@@ -22,7 +22,7 @@ public class Client {
     @Column(name = "fio", nullable = false)
     private String fio;
 
-    @Column(name = "passport", nullable = false, length = 10)
+    @Column(name = "passport", nullable = false, length = 10, unique = true)
     private String passport;
 
     @Column(name = "family_status", nullable = false)
@@ -31,7 +31,7 @@ public class Client {
     @Column(name = "registration_address", nullable = false)
     private String registrationAddress;
 
-    @Column(name = "contact_phone", nullable = false, length = 11)
+    @Column(name = "contact_phone", nullable = false, length = 11, unique = true)
     private String contactPhone;
 
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, orphanRemoval = true)
