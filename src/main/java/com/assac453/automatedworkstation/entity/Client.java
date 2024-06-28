@@ -35,9 +35,6 @@ public class Client {
     @Column(name = "contact_phone", nullable = false, length = 11)
     private String contactPhone;
 
-    @Column(name = "request_amount", nullable = false, precision = 12, scale = 2)
-    private BigDecimal requestAmount;
-
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<EmploymentInfo> employmentInfos;
 
