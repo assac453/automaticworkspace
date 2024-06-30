@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
@@ -30,13 +31,11 @@ public class Request {
     @Column(name = "approved_status", nullable = false)
     private Boolean approvedStatus;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "client_id", nullable = false)
     private Client client;
 
-    @OneToOne
-    @JoinColumn(name = "contract_id", nullable = false)
-    private Contract contract;
-
+    @OneToMany(mappedBy = "request")
+    private Set<Contract> contracts = new LinkedHashSet<>();
 
 }

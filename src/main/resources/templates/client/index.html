@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Клиенты</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-3">
+            <div th:replace="~{fragments/sidelayout :: sidebar}"></div>
+        </div>
+        <div class="col-md-9">
+            <div class="content">
+                <h1>Клиенты</h1>
+                <form action="/client/search" method="post">
+                    <div class="form-group">
+                        <label for="searchType">Поиск по критериям</label>
+                        <select name="searchType" class="form-control" id="searchType">
+                            <option value="fio">ФИО</option>
+                            <option value="passport">Паспорт</option>
+                            <option value="contactPhone">Контактный номер</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input name="searchValue" type="text" class="form-control" placeholder="Введите значение для поиска" required/>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Поиск</button>
+                </form>
+                <h2 class="mt-4">Список клиентов</h2>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>ФИО</th>
+                        <th>Паспорт</th>
+                        <th>Семейное положение</th>
+                        <th>Адрес</th>
+                        <th>Телефон</th>
+                        <th>Действия</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="client : ${clients}">
+                        <td th:text="${client.fio}"></td>
+                        <td th:text="${client.passport}"></td>
+                        <td th:text="${client.familyStatus ? 'В браке' : 'Не в браке'}"></td>
+                        <td th:text="${client.registrationAddress}"></td>
+                        <td th:text="${client.contactPhone}"></td>
+                        <td>
+                            <a th:href="@{/client/edit/{id}(id=${client.id})}" class="btn btn-warning btn-sm">Редактировать</a>
+                            <form th:action="@{/client/delete/{id}(id=${client.id})}" method="post" style="display:inline;">
+                                <button type="submit" class="btn btn-danger btn-sm">Удалить</button>
+                            </form>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

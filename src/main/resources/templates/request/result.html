@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Одобрение</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-3">
+            <div th:replace="~{fragments/sidelayout :: sidebar}"></div>
+        </div>
+        <div class="col-md-9">
+            <div class="content">
+                <div th:if="${request.getApprovedStatus()}">
+                    <h1 class="alert-success alert">Заявка одобрена</h1>
+                    <h2 th:text="${'Срок: '+request.getApprovedTerm() + ' мес.'}"></h2>
+                    <h2 th:text="${'Количество: '+request.getApprovedAmount() + ' рублей'}"></h2>
+                </div>
+                <div th:unless="${request.getApprovedStatus()}">
+                    <h1 class="alert alert-danger">Заявка не одобрена</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

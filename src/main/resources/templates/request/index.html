@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Заявки</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-3">
+            <div th:replace="~{fragments/sidelayout :: sidebar}"></div>
+        </div>
+        <div class="col-md-9">
+            <div class="content">
+                <h2>Список заявок</h2>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">ФИО</th>
+                        <th scope="col">Сумма</th>
+                        <th scope="col">Срок</th>
+                        <th scope="col">Статус</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="request : ${requests}">
+                        <td th:text="${request.fio}">ФИО</td>
+                        <td th:text="${request.amount}">Сумма</td>
+                        <td th:text="${request.term}">Срок</td>
+                        <td th:text="${request.status ? 'Одобрено' : 'Не одобрено'}">Статус</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

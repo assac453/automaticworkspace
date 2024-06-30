@@ -1,11 +1,10 @@
 package com.assac453.automatedworkstation.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
+import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
@@ -14,6 +13,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@EqualsAndHashCode
 public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,9 +35,8 @@ public class Client {
     private String contactPhone;
 
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<EmploymentInfo> employmentInfos;
+    private Set<EmploymentInfo> employmentInfos = new HashSet<>();
 
-    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Request> requests;
-
+    @OneToMany(mappedBy = "client")
+    private Set<Request> requests = new LinkedHashSet<>();
 }

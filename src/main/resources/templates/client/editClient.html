@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактирование клиента</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-3">
+            <div th:replace="~{fragments/sidelayout :: sidebar}"></div>
+        </div>
+        <div class="col-md-9">
+            <div class="content">
+                <h1 class="mb-4">Редактирование клиента</h1>
+                <form action="/client/update" method="post">
+                    <input type="hidden" name="id" th:value="${client.id}">
+                    <div class="form-group">
+                        <label>ФИО:</label>
+                        <input type="text" class="form-control" name="fio" th:value="${client.fio}" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Паспортные данные:</label>
+                        <input type="text" class="form-control" name="passport" th:value="${client.passport}" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Семейное положение:</label>
+                        <select class="form-control" name="familyStatus" th:value="${client.familyStatus}" required>
+                            <option value="true" th:selected="${client.familyStatus}">В браке</option>
+                            <option value="false" th:selected="${!client.familyStatus}">Не в браке</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Адрес прописки:</label>
+                        <input type="text" class="form-control" name="registrationAddress" th:value="${client.registrationAddress}" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Контактный телефон:</label>
+                        <input type="text" class="form-control" name="contactPhone" th:value="${client.contactPhone}" required>
+                    </div>
+                    <button type="submit" class="btn btn-success mt-4">Сохранить</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

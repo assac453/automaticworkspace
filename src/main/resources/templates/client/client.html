@@ -1,0 +1,152 @@
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Клиенты</title>-->
+<!--    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">-->
+<!--</head>-->
+<!--<body>-->
+<!--<div class="container mt-5">-->
+<!--    <div class="row">-->
+<!--        <div class="col-md-3">-->
+<!--            <div th:replace="~{fragments/sidelayout :: sidebar}"></div>-->
+<!--        </div>-->
+<!--        <div class="col-md-9">-->
+<!--            <div class="content">-->
+<!--                <h1 class="mb-4">Клиенты</h1>-->
+<!--                <form action="/client/search" method="post" class="mb-4">-->
+<!--                    <div class="input-group">-->
+<!--                        <input type="text" name="search" class="form-control" placeholder="Поиск клиентов">-->
+<!--                        <div class="input-group-append">-->
+<!--                            <button class="btn btn-primary" type="submit">Поиск</button>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </form>-->
+<!--                <div th:if="${clients != null}">-->
+<!--                    <ul class="list-group">-->
+<!--                        <li class="list-group-item" th:each="client : ${clients}">-->
+<!--                            <div class="d-flex justify-content-between align-items-center">-->
+<!--                                <div>-->
+<!--                                    <h5 th:text="${client.fio}"></h5>-->
+<!--                                    <p>-->
+<!--                                        Паспорт: <span th:text="${client.passport}"></span><br>-->
+<!--                                        Семейное положение: <span th:text="${client.familyStatus ? 'В браке' : 'Не в браке'}"></span><br>-->
+<!--                                        Адрес: <span th:text="${client.registrationAddress}"></span><br>-->
+<!--                                        Телефон: <span th:text="${client.contactPhone}"></span>-->
+<!--                                    </p>-->
+<!--                                    <div id="accordion" th:if="${client.employmentInfos != null}">-->
+<!--                                        <div class="card" th:each="employment, stat : ${client.employmentInfos}">-->
+<!--                                            <div class="card-header" id="heading" th:attr="id='heading'+${stat.index}">-->
+<!--                                                <h5 class="mb-0">-->
+<!--                                                    <button class="btn btn-link" data-toggle="collapse" aria-expanded="true" th:attr="aria-controls='collapse'+${stat.index}">-->
+<!--                                                        Сведения о занятости-->
+<!--                                                    </button>-->
+<!--                                                </h5>-->
+<!--                                            </div>-->
+
+<!--                                            <div id="collapse" th:attr="id='collapse'+${stat.index}" class="collapse" th:classappend="${stat.index == 0} ? ' show'"-->
+<!--                                                 data-parent="#accordion">-->
+<!--                                                <div class="card-body">-->
+<!--                                                    <p>Период работы (в месяцах): <span th:text="${employment.workPeriod}"></span></p>-->
+<!--                                                    <p>Должность: <span th:text="${employment.position}"></span></p>-->
+<!--                                                    <p>Название организации: <span th:text="${employment.organization}"></span></p>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                                <div>-->
+<!--                                    <a th:href="@{/client/edit/{id}(id=${client.id})}" class="btn btn-warning btn-sm">Редактировать</a>-->
+<!--                                    <form action="#" th:action="@{/client/delete/{id}(id=${client.id})}" method="post" style="display:inline;">-->
+<!--                                        <button type="submit" class="btn btn-danger btn-sm">Удалить</button>-->
+<!--                                    </form>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </li>-->
+<!--                    </ul>-->
+<!--                </div>-->
+<!--                <div th:if="${clients == null || clients.size() == 0}">-->
+<!--                    <p>Нет клиентов для отображения.</p>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>-->
+<!--<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>-->
+<!--<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>-->
+<!--</body>-->
+<!--</html>-->
+
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Клиенты</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-3">
+            <div th:replace="~{fragments/sidelayout :: sidebar}"></div>
+        </div>
+        <div class="col-md-9">
+            <div class="content">
+                <h1>Клиенты</h1>
+                <form action="/client/search" method="post">
+                    <div class="form-group">
+                        <label for="searchType">Поиск по критериям</label>
+                        <select name="searchType" class="form-control" id="searchType">
+                            <option value="fio">ФИО</option>
+                            <option value="passport">Паспорт</option>
+                            <option value="contactPhone">Контактный номер</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input name="searchValue" type="text" class="form-control" placeholder="Введите значение для поиска" required/>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Поиск</button>
+                    <a class="btn btn-primary" href="/client/search/reset">Сбросить</a>
+                </form>
+                <h2 class="mt-4">Список клиентов</h2>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>ФИО</th>
+                        <th>Паспорт</th>
+                        <th>Семейное положение</th>
+                        <th>Адрес</th>
+                        <th>Телефон</th>
+                        <th>Действия</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="client : ${clients}">
+                        <td th:text="${client.fio}"></td>
+                        <td th:text="${client.passport}"></td>
+                        <td th:text="${client.familyStatus ? 'В браке' : 'Не в браке'}"></td>
+                        <td th:text="${client.registrationAddress}"></td>
+                        <td th:text="${client.contactPhone}"></td>
+                        <td>
+                            <a th:href="@{/client/edit/{id}(id=${client.id})}" class="btn btn-warning btn-sm">Редактировать</a>
+                            <form th:action="@{/client/delete/{id}(id=${client.id})}" method="post" style="display:inline;">
+                                <button type="submit" class="btn btn-danger btn-sm">Удалить</button>
+                            </form>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

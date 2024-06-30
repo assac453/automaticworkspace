@@ -27,8 +27,9 @@ public class EmploymentInfo {
     @Column(name = "organization", nullable = false)
     private String organization;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "clients_id", nullable = false)
     private Client client;
+
 
 }

@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.util.Date;
 
@@ -19,13 +21,16 @@ public class Contract {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "signed_date", nullable = false)
+    @Column(name = "signed_date")
     @Temporal(TemporalType.DATE)
     private Date signedDate;
 
     @Column(name = "signed_status", nullable = false)
     private Boolean signedStatus;
 
-    @OneToOne(mappedBy = "contract")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "request_id")
     private Request request;
+
 }

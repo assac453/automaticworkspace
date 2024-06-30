@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>АРМ Менеджера по Оформлению Кредита</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+</head>
+
+<body>
+
+<div class="row">
+    <div class="col-md-3">
+        <div th:replace="fragments/sidelayout :: sidebar"></div>
+    </div>
+    <div class="col-md-8">
+        <!-- Основное содержимое страницы -->
+        <div class="content">
+            <div class="my-5">
+                <div class="card-header">
+                    <h1>АРМ по оформлению кредита</h1>
+                </div>
+            </div>
+            <!-- Секции 2 на 2 -->
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h3 class="card-title">Заявки</h3>
+                            <p class="card-text">Создать заявку</p>
+                            <a href="/request/new" class="btn btn-primary">Перейти</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h3 class="card-title">Кредитные договора</h3>
+                            <p class="card-text">Подписать договор</p>
+                            <a href="/contract" class="btn btn-primary">Перейти</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h3 class="card-title">Клиенты</h3>
+                            <p class="card-text">Управление клиентами</p>
+                            <a href="/client" class="btn btn-primary">Перейти</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h3 class="card-title">Заявки</h3>
+                            <p class="card-text">Просмотр заявок</p>
+                            <a href="/request" class="btn btn-primary">Перейти</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>
