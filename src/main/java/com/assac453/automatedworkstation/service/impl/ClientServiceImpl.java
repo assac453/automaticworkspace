@@ -1,7 +1,6 @@
 package com.assac453.automatedworkstation.service.impl;
 
 import com.assac453.automatedworkstation.dto.ClientDto;
-import com.assac453.automatedworkstation.dto.EmploymentInfoDto;
 import com.assac453.automatedworkstation.entity.Client;
 import com.assac453.automatedworkstation.mapper.ClientMapper;
 import com.assac453.automatedworkstation.mapper.EmploymentInfoMapper;
@@ -70,43 +69,10 @@ public class ClientServiceImpl implements ClientService {
         return clientRepository.save(client);
     }
 
-//    @Override
-//    public ClientDtoRequest findByIdWithEmployment(int id) {
-//
-//
-//        ClientDto clientDto = findById(id);
-//        clientDto.setEmploymentInfos(employmentInfoService.findByClientId(id));
-//
-//
-//        Client client = clientRepository.findById(id);
-//        List<EmploymentInfoDtoRequest> employmentInfo = client.getEmploymentInfos().stream().map(e ->
-//                EmploymentInfoDtoRequest.builder()
-//                        .organization(e.getOrganization())
-//                        .position(e.getPosition())
-//                        .workPeriod(e.getWorkPeriod())
-//                        .build()
-//        ).toList();
-//
-//        return ClientDtoRequest.builder()
-//                .id(client.getId())
-//                .fio(client.getFio())
-//                .passport(client.getPassport())
-//                .contactPhone(client.getContactPhone())
-//                .employmentInfos(employmentInfo)
-//                .familyStatus(client.getFamilyStatus())
-//                .registrationAddress(client.getRegistrationAddress())
-//                .build();
-//    }
 
     @Override
     public Client findByIdEntity(int id) {
         return clientRepository.findById(id);
     }
 
-    @Override
-    public List<EmploymentInfoDto> findEmploymentInfo(int clientId) {
-        return clientRepository.findEmploymentInfoByClient(clientId).stream().map(employmentInfoMapper::entityToDto).toList();
-//        Client client = clientRepository.findById(clientId);
-//        return client.getEmploymentInfos().stream().map(employmentInfoMapper::entityToDto).toList();
-    }
 }

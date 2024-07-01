@@ -47,13 +47,11 @@ public class RequestControllerMvc {
             requestDto = RequestDto
                     .builder()
                     .approvedTerm(Integer.valueOf(term))
-                    .approvedAmount
-                            (
-                                    BigDecimal.valueOf
-                                            (
-                                                    Double.parseDouble(amount)
-                                            )
+                    .approvedAmount(
+                            BigDecimal.valueOf(
+                                    Double.parseDouble(amount)
                             )
+                    )
                     .approvedStatus(true)
                     .build();
             model.addAttribute("request", requestDto);

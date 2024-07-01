@@ -23,11 +23,6 @@ public interface ClientService {
 
     int create(Client client);
 
-//    ClientDtoRequest findByIdWithEmployment(int id);
-
     Client findByIdEntity(int id);
-
-    List<EmploymentInfoDto> findEmploymentInfo(int clientId);
-
 
 }

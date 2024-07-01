@@ -1,6 +1,7 @@
 package com.assac453.automatedworkstation.controller.mvc;
 
 import com.assac453.automatedworkstation.dto.ClientDto;
+import com.assac453.automatedworkstation.dto.EmploymentInfoDto;
 import com.assac453.automatedworkstation.service.ClientService;
 import com.assac453.automatedworkstation.service.EmploymentInfoService;
 import lombok.RequiredArgsConstructor;
@@ -80,7 +81,8 @@ public class ClientControllerMvc {
     @GetMapping("/{id}")
     public String showClientForm(@PathVariable("id") Integer id, Model model) {
         model.addAttribute("client", clientService.findById(id));
-        model.addAttribute("employmentInfos", clientService.findEmploymentInfo(id));
+        List<EmploymentInfoDto> byClientId = infoService.findByClientId(id);
+        model.addAttribute("employmentInfos", byClientId);
         return "client/concreteClient";
     }
 }

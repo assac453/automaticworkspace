@@ -56,4 +56,12 @@ public class EmploymentInfoRepositoryImpl implements EmploymentInfoRepository {
                 .setParameter("client", client)
                 .list();
     }
+
+    @Override
+    public List<EmploymentInfo> findByClientId(Integer clientId) {
+        return sessionFactory.getCurrentSession()
+                .createQuery("from EmploymentInfo where client.id=:id", EmploymentInfo.class)
+                .setParameter("id", clientId)
+                .list();
+    }
 }

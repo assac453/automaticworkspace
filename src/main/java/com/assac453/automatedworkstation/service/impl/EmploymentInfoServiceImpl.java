@@ -1,7 +1,6 @@
 package com.assac453.automatedworkstation.service.impl;
 
 import com.assac453.automatedworkstation.dto.EmploymentInfoDto;
-import com.assac453.automatedworkstation.entity.Client;
 import com.assac453.automatedworkstation.entity.EmploymentInfo;
 import com.assac453.automatedworkstation.mapper.EmploymentInfoMapper;
 import com.assac453.automatedworkstation.repository.EmploymentInfoRepository;
@@ -62,7 +61,6 @@ public class EmploymentInfoServiceImpl implements EmploymentInfoService {
 
     @Override
     public List<EmploymentInfoDto> findByClientId(int clientId) {
-        Client client = clientService.findByIdEntity(clientId);
-        return employmentInfoRepository.findByClient(client).stream().map(employmentInfoMapper::entityToDto).toList();
+        return employmentInfoRepository.findByClientId(clientId).stream().map(employmentInfoMapper::entityToDto).toList();
     }
 }

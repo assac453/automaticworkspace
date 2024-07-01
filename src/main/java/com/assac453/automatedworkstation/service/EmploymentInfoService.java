@@ -19,4 +19,5 @@ public interface EmploymentInfoService {
     void saveAll(List<EmploymentInfo> infos);
 
     List<EmploymentInfoDto> findByClientId(int clientId);
+
 }

@@ -19,4 +19,6 @@ public interface EmploymentInfoRepository {
     void saveAll(List<EmploymentInfo> infos);
 
     List<EmploymentInfo> findByClient(Client client);
+
+    List<EmploymentInfo> findByClientId(Integer clientId);
 }

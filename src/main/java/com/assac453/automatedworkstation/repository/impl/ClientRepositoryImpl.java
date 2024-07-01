@@ -1,7 +1,6 @@
 package com.assac453.automatedworkstation.repository.impl;
 
 import com.assac453.automatedworkstation.entity.Client;
-import com.assac453.automatedworkstation.entity.EmploymentInfo;
 import com.assac453.automatedworkstation.repository.ClientRepository;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.SessionFactory;
@@ -42,14 +41,6 @@ public class ClientRepositoryImpl implements ClientRepository {
     @Override
     public void delete(Integer id) {
         sessionFactory.getCurrentSession().delete(findById(id));
-    }
-
-    @Override
-    public List<EmploymentInfo> findEmploymentInfoByClient(Integer id) {
-        return sessionFactory.getCurrentSession()
-                .createQuery("from EmploymentInfo where client.id=:id", EmploymentInfo.class)
-                .setParameter("id", id)
-                .list();
     }
 
     @Override

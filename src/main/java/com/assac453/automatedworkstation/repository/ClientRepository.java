@@ -24,5 +24,4 @@ public interface ClientRepository {
 
     void delete(Integer id);
 
-    List<EmploymentInfo> findEmploymentInfoByClient(Integer id);
 }
