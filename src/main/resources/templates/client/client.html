@@ -132,10 +132,7 @@
                         <td th:text="${client.registrationAddress}"></td>
                         <td th:text="${client.contactPhone}"></td>
                         <td>
-                            <a th:href="@{/client/edit/{id}(id=${client.id})}" class="btn btn-warning btn-sm">Редактировать</a>
-                            <form th:action="@{/client/delete/{id}(id=${client.id})}" method="post" style="display:inline;">
-                                <button type="submit" class="btn btn-danger btn-sm">Удалить</button>
-                            </form>
+                            <a th:href="@{/client/{id}(id=${client.id})}" class="btn btn-warning btn-sm">Перейти</a>
                         </td>
                     </tr>
                     </tbody>

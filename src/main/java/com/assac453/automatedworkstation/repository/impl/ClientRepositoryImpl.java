@@ -1,6 +1,7 @@
 package com.assac453.automatedworkstation.repository.impl;
 
 import com.assac453.automatedworkstation.entity.Client;
+import com.assac453.automatedworkstation.entity.EmploymentInfo;
 import com.assac453.automatedworkstation.repository.ClientRepository;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.SessionFactory;
@@ -44,6 +45,14 @@ public class ClientRepositoryImpl implements ClientRepository {
     }
 
     @Override
+    public List<EmploymentInfo> findEmploymentInfoByClient(Integer id) {
+        return sessionFactory.getCurrentSession()
+                .createQuery("from EmploymentInfo where client.id=:id", EmploymentInfo.class)
+                .setParameter("id", id)
+                .list();
+    }
+
+    @Override
     public List<Client> findByFio(String fio) {
         return sessionFactory.getCurrentSession()
                 .createQuery("from Client where fio ilike :fio", Client.class)
@@ -52,19 +61,19 @@ public class ClientRepositoryImpl implements ClientRepository {
     }
 
     @Override
-    public Client findByPassport(String passport) {
+    public List<Client> findByPassport(String passport) {
         return sessionFactory.getCurrentSession()
                 .createQuery("from Client where passport like :passport", Client.class)
                 .setParameter("passport", "%" + passport + "%")
-                .getSingleResult();
+                .list();
     }
 
     @Override
-    public Client findByContactPhone(String contactPhone) {
+    public List<Client> findByContactPhone(String contactPhone) {
         return sessionFactory.getCurrentSession()
                 .createQuery("from Client where contactPhone like :contactPhone", Client.class)
                 .setParameter("contactPhone", "%" + contactPhone + "%")
-                .getSingleResult();
+                .list();
     }
 
 }

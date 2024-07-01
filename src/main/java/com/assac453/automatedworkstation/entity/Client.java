@@ -34,7 +34,7 @@ public class Client {
     @Column(name = "contact_phone", nullable = false, length = 11, unique = true)
     private String contactPhone;
 
-    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private Set<EmploymentInfo> employmentInfos = new HashSet<>();
 
     @OneToMany(mappedBy = "client")

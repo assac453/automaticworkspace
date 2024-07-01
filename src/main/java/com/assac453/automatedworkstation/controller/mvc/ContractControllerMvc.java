@@ -17,13 +17,13 @@ public class ContractControllerMvc {
     private final ContractService contractService;
 
     @GetMapping
-    public String index(Model model){
+    public String index(Model model) {
         model.addAttribute("contracts", contractService.findAllContractClient());
         return "contract/index";
     }
 
     @GetMapping("/{id}/sign")
-    public String sign(@PathVariable int id, Model model){
+    public String sign(@PathVariable int id, Model model) {
         contractService.signContract(id);
         model.addAttribute("contracts", contractService.findAllContractClient());
         return "redirect:/contract";

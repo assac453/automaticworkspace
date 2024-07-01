@@ -24,5 +24,5 @@ public interface ContractService {
 
     List<ContractRequestDtoResponse> findAllContractRequest();
 
-    List<ContractClientDtoResponse>findAllContractClient();
+    List<ContractClientDtoResponse> findAllContractClient();
 }

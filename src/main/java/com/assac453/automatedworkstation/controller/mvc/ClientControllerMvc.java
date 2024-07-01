@@ -2,12 +2,12 @@ package com.assac453.automatedworkstation.controller.mvc;
 
 import com.assac453.automatedworkstation.dto.ClientDto;
 import com.assac453.automatedworkstation.service.ClientService;
+import com.assac453.automatedworkstation.service.EmploymentInfoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -17,6 +17,7 @@ import java.util.List;
 public class ClientControllerMvc {
 
     private final ClientService clientService;
+    private final EmploymentInfoService infoService;
 
     @GetMapping
     public String index(Model model) {
@@ -37,12 +38,12 @@ public class ClientControllerMvc {
                 if (!byFio.isEmpty()) clients.addAll(byFio);
                 break;
             case "passport":
-                ClientDto clientByPassport = clientService.findByPassport(searchValue);
-                if (clientByPassport != null) clients.add(clientByPassport);
+                List<ClientDto> byPassport = clientService.findByPassport(searchValue);
+                if (!byPassport.isEmpty()) clients.addAll(byPassport);
                 break;
             case "contactPhone":
-                ClientDto clientByContactPhone = clientService.findByContactPhone(searchValue);
-                if (clientByContactPhone != null) clients.add(clientByContactPhone);
+                List<ClientDto> byContactPhone = clientService.findByContactPhone(searchValue);
+                if (!byContactPhone.isEmpty()) clients.addAll(byContactPhone);
                 break;
             default:
                 break;
@@ -53,7 +54,7 @@ public class ClientControllerMvc {
     }
 
     @GetMapping("/search/reset")
-    public String resetSearch(){
+    public String resetSearch() {
         return "redirect:/client";
     }
 
@@ -74,5 +75,12 @@ public class ClientControllerMvc {
     public String updateClient(@ModelAttribute ClientDto client) {
         clientService.update(client, client.getId());
         return "redirect:/client";
+    }
+
+    @GetMapping("/{id}")
+    public String showClientForm(@PathVariable("id") Integer id, Model model) {
+        model.addAttribute("client", clientService.findById(id));
+        model.addAttribute("employmentInfos", clientService.findEmploymentInfo(id));
+        return "client/concreteClient";
     }
 }

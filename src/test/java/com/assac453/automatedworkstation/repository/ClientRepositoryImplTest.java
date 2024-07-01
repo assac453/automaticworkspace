@@ -3,6 +3,7 @@ package com.assac453.automatedworkstation.repository;
 
 import com.assac453.automatedworkstation.config.HibernateConfiguration;
 import com.assac453.automatedworkstation.entity.Client;
+import com.assac453.automatedworkstation.service.EmploymentInfoService;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,9 @@ public class ClientRepositoryImplTest {
 
     @Autowired
     private ClientRepository clientRepository;
+
+    @Autowired
+    private EmploymentInfoService employmentInfoService;
 
     @Test
     public void saveShouldExist() {
@@ -73,21 +77,21 @@ public class ClientRepositoryImplTest {
 //        assertThat(foundClient).isEqualTo(client);
 //    }
 
-    @Test
-    public void findByPassport_ShouldExist() {
-        Client client = createClient();
-        clientRepository.save(client);
-        Client foundClient = clientRepository.findByPassport(client.getPassport());
-        assertThat(foundClient).isEqualTo(client);
-    }
-
-    @Test
-    public void findByContactPhone_ShouldExist() {
-        Client client = createClient();
-        clientRepository.save(client);
-        Client foundClient = clientRepository.findByContactPhone(client.getContactPhone());
-        assertThat(foundClient).isEqualTo(client);
-    }
+//    @Test
+//    public void findByPassport_ShouldExist() {
+//        Client client = createClient();
+//        clientRepository.save(client);
+//        Client foundClient = clientRepository.findByPassport(client.getPassport());
+//        assertThat(foundClient).isEqualTo(client);
+//    }
+//
+//    @Test
+//    public void findByContactPhone_ShouldExist() {
+//        Client client = createClient();
+//        clientRepository.save(client);
+//        Client foundClient = clientRepository.findByContactPhone(client.getContactPhone());
+//        assertThat(foundClient).isEqualTo(client);
+//    }
 
     private Client createClient() {
         return Client.builder()

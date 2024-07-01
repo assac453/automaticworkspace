@@ -22,6 +22,7 @@ import java.util.List;
 public class ContractServiceImpl implements ContractService {
 
     private final ContractRepository contractRepository;
+    private final ContractMapper contractMapper;
 
     @Override
     public int save(Contract contract) {
@@ -30,7 +31,7 @@ public class ContractServiceImpl implements ContractService {
 
     @Override
     public void update(ContractDto contractDto, int id) {
-        Contract contract = ContractMapper.INSTANCE.dtoToEntity(contractDto);
+        Contract contract = contractMapper.dtoToEntity(contractDto);
         contract.setId(id);
         contractRepository.update(contract);
     }
@@ -44,7 +45,7 @@ public class ContractServiceImpl implements ContractService {
     public List<ContractDto> findAll() {
         return contractRepository
                 .findAll()
-                .stream().map(ContractMapper.INSTANCE::entityToDto)
+                .stream().map(contractMapper::entityToDto)
                 .toList();
     }
 
@@ -95,14 +96,14 @@ public class ContractServiceImpl implements ContractService {
 
     @Override
     public ContractDto findById(int id) {
-        return ContractMapper.INSTANCE.entityToDto(contractRepository.findById(id));
+        return contractMapper.entityToDto(contractRepository.findById(id));
     }
 
     @Override
     public List<ContractDto> findBySignedStatus(Boolean signedStatus) {
         return contractRepository
                 .findBySignedStatus(signedStatus)
-                .stream().map(ContractMapper.INSTANCE::entityToDto)
+                .stream().map(contractMapper::entityToDto)
                 .toList();
     }
 

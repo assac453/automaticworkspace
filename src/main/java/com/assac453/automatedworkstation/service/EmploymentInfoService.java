@@ -17,4 +17,6 @@ public interface EmploymentInfoService {
     void delete(int id);
 
     void saveAll(List<EmploymentInfo> infos);
+
+    List<EmploymentInfoDto> findByClientId(int clientId);
 }

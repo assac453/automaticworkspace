@@ -5,7 +5,6 @@ import com.assac453.automatedworkstation.repository.ContractRepository;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 

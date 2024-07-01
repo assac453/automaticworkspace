@@ -1,5 +1,6 @@
 package com.assac453.automatedworkstation.repository;
 
+import com.assac453.automatedworkstation.entity.Client;
 import com.assac453.automatedworkstation.entity.EmploymentInfo;
 
 import java.util.List;
@@ -16,4 +17,6 @@ public interface EmploymentInfoRepository {
     void delete(int id);
 
     void saveAll(List<EmploymentInfo> infos);
+
+    List<EmploymentInfo> findByClient(Client client);
 }

@@ -1,10 +1,8 @@
 package com.assac453.automatedworkstation.service.impl;
 
-import com.assac453.automatedworkstation.dto.ClientDto;
 import com.assac453.automatedworkstation.dto.EmploymentInfoDto;
 import com.assac453.automatedworkstation.entity.Client;
 import com.assac453.automatedworkstation.entity.EmploymentInfo;
-import com.assac453.automatedworkstation.mapper.ClientMapper;
 import com.assac453.automatedworkstation.mapper.EmploymentInfoMapper;
 import com.assac453.automatedworkstation.repository.EmploymentInfoRepository;
 import com.assac453.automatedworkstation.service.ClientService;
@@ -24,28 +22,30 @@ public class EmploymentInfoServiceImpl implements EmploymentInfoService {
     private final EmploymentInfoRepository employmentInfoRepository;
     private final ClientService clientService;
 
+    private final EmploymentInfoMapper employmentInfoMapper;
+
     @Override
     public int save(EmploymentInfoDto employmentInfoDto) {
-        EmploymentInfo employmentInfo = EmploymentInfoMapper.INSTANCE.dtoToEntity(employmentInfoDto);
-        ClientDto byId = clientService.findById(employmentInfoDto.getClientId());
-        Client client = ClientMapper.INSTANCE.dtoToEntity(byId);
-        employmentInfo.setClient(client);
+        EmploymentInfo employmentInfo = employmentInfoMapper.dtoToEntity(employmentInfoDto);
+//        ClientDto byId = clientService.findById(employmentInfoDto.getClientId());
+//        Client client = clientMapper.dtoToEntity(byId);
+//        employmentInfo.setClient(client);
         return employmentInfoRepository.save(employmentInfo);
     }
 
     @Override
     public EmploymentInfoDto findById(int id) {
-        return EmploymentInfoMapper.INSTANCE.entityToDto(employmentInfoRepository.findById(id));
+        return employmentInfoMapper.entityToDto(employmentInfoRepository.findById(id));
     }
 
     @Override
     public List<EmploymentInfoDto> findAll() {
-        return employmentInfoRepository.findAll().stream().map(EmploymentInfoMapper.INSTANCE::entityToDto).toList();
+        return employmentInfoRepository.findAll().stream().map(employmentInfoMapper::entityToDto).toList();
     }
 
     @Override
     public void update(EmploymentInfoDto employmentInfoDto, int id) {
-        EmploymentInfo employmentInfo = EmploymentInfoMapper.INSTANCE.dtoToEntity(employmentInfoDto);
+        EmploymentInfo employmentInfo = employmentInfoMapper.dtoToEntity(employmentInfoDto);
         employmentInfo.setId(id);
         employmentInfoRepository.update(employmentInfo);
     }
@@ -58,5 +58,11 @@ public class EmploymentInfoServiceImpl implements EmploymentInfoService {
     @Override
     public void saveAll(List<EmploymentInfo> infos) {
         employmentInfoRepository.saveAll(infos);
+    }
+
+    @Override
+    public List<EmploymentInfoDto> findByClientId(int clientId) {
+        Client client = clientService.findByIdEntity(clientId);
+        return employmentInfoRepository.findByClient(client).stream().map(employmentInfoMapper::entityToDto).toList();
     }
 }

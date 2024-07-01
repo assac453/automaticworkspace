@@ -17,9 +17,7 @@ public interface RequestService {
 
     void delete(int id);
 
-    void serve(RequestDtoRequest requestDtoRequest);
+    RequestDto serve(RequestDtoRequest requestDtoRequest);
 
-    boolean isApproved(Integer id);
-    RequestDto isApproved(String pass);
     List<RequestClientDtoResponse> findAllRequestClients();
 }

@@ -33,24 +33,26 @@ public class RequestServiceImpl implements RequestService {
 
     private final ContractService contractService;
 
+    private final RequestMapper requestMapper;
+
     @Override
     public List<RequestDto> findAll() {
-        return requestRepository.findAll().stream().map(RequestMapper.INSTANCE::entityToDto).toList();
+        return requestRepository.findAll().stream().map(requestMapper::entityToDto).toList();
     }
 
     @Override
     public RequestDto findById(int id) {
-        return RequestMapper.INSTANCE.entityToDto(requestRepository.findById(id));
+        return requestMapper.entityToDto(requestRepository.findById(id));
     }
 
     @Override
     public int create(RequestDto requestDto) {
-        return requestRepository.save(RequestMapper.INSTANCE.dtoToEntity(requestDto));
+        return requestRepository.save(requestMapper.dtoToEntity(requestDto));
     }
 
     @Override
     public void update(RequestDto requestDto, int id) {
-        Request request = RequestMapper.INSTANCE.dtoToEntity(requestDto);
+        Request request = requestMapper.dtoToEntity(requestDto);
         request.setId(id);
         requestRepository.update(request);
     }
@@ -61,7 +63,7 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
-    public void serve(RequestDtoRequest requestDtoRequest) {
+    public RequestDto serve(RequestDtoRequest requestDtoRequest) {
         Client client = Client.builder()
                 .fio(requestDtoRequest.getFio())
                 .passport(requestDtoRequest.getPassport())
@@ -93,24 +95,14 @@ public class RequestServiceImpl implements RequestService {
         requestRepository.save(request);
         employmentInfoService.saveAll(infos);
         decisionContract(request);
-    }
 
-
-    @Override
-    public boolean isApproved(Integer id) {
-        return requestRepository.findById(id).getApprovedStatus();
-    }
-
-    public RequestDto isApproved(String pass) {
-        for (var item : requestRepository.findAll()) {
-            if (item.getClient().getPassport().equals(pass)) {
-                return RequestDto.builder()
-                        .approvedStatus(item.getApprovedStatus())
-                        .approvedAmount(item.getApprovedAmount())
-                        .approvedTerm(item.getApprovedTerm()).build();
-            }
-        }
-        return RequestDto.builder().build();
+        return RequestDto.builder()
+                .id(request.getId())
+                .clientId(client.getId())
+                .approvedStatus(request.getApprovedStatus())
+                .approvedAmount(request.getApprovedAmount())
+                .approvedTerm(request.getApprovedTerm())
+                .build();
     }
 
     @Override

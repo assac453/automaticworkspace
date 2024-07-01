@@ -1,5 +1,6 @@
 package com.assac453.automatedworkstation.repository.impl;
 
+import com.assac453.automatedworkstation.entity.Client;
 import com.assac453.automatedworkstation.entity.EmploymentInfo;
 import com.assac453.automatedworkstation.repository.EmploymentInfoRepository;
 import lombok.RequiredArgsConstructor;
@@ -45,5 +46,14 @@ public class EmploymentInfoRepositoryImpl implements EmploymentInfoRepository {
         for (EmploymentInfo info : infos) {
             sessionFactory.getCurrentSession().saveOrUpdate(info);
         }
+    }
+
+    @Override
+    public List<EmploymentInfo> findByClient(Client client) {
+        String hql = "from EmploymentInfo where client=:client ";
+        return sessionFactory.getCurrentSession()
+                .createQuery(hql, EmploymentInfo.class)
+                .setParameter("client", client)
+                .list();
     }
 }

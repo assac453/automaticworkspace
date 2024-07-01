@@ -12,6 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 public class ClientDtoRequest {
+    private Integer id;
     private String fio;
     private String passport;
     private Boolean familyStatus;

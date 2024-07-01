@@ -1,6 +1,7 @@
 package com.assac453.automatedworkstation.repository;
 
 import com.assac453.automatedworkstation.entity.Client;
+import com.assac453.automatedworkstation.entity.EmploymentInfo;
 
 import java.util.List;
 
@@ -11,15 +12,17 @@ public interface ClientRepository {
 
     List<Client> findAll();
 
-    Client findByContactPhone(String contactPhone);
+    List<Client> findByContactPhone(String contactPhone);
 
     List<Client> findByFio(String fio);
 
-    Client findByPassport(String passport);
+    List<Client> findByPassport(String passport);
 
     void update(Client client);
 
     void delete(Client client);
 
     void delete(Integer id);
+
+    List<EmploymentInfo> findEmploymentInfoByClient(Integer id);
 }
