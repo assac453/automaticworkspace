@@ -88,6 +88,9 @@ public class ContractServiceImpl implements ContractService {
                             )
                             .signedDate(contract.getSignedDate())
                             .signedStatus(contract.getSignedStatus())
+                            .term(contract.getRequest().getApprovedTerm())
+                            .amount(contract.getRequest().getApprovedAmount())
+                            .status(contract.getRequest().getApprovedStatus())
                             .build()
             );
         }

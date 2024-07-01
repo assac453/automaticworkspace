@@ -18,6 +18,7 @@ public class ContractControllerMvc {
 
     @GetMapping
     public String index(Model model) {
+        // добавить информацию из заявки
         model.addAttribute("contracts", contractService.findAllContractClient());
         return "contract/index";
     }

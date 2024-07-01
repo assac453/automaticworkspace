@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 @Data
@@ -16,4 +17,7 @@ public class ContractClientDtoResponse {
     private String fio;
     private Date signedDate;
     private Boolean signedStatus;
+    private Boolean status;
+    private Integer term;
+    private BigDecimal amount;
 }

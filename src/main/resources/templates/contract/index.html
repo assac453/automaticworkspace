@@ -21,6 +21,9 @@
                             <th>ФИО</th>
                             <th>Дата подписания</th>
                             <th>Статус подписания</th>
+                            <th>Одобренный срок (мес.)</th>
+                            <th>Одобренная сумма</th>
+                            <th>Статус заявки</th>
                             <th>Действия</th>
                         </tr>
                         </thead>
@@ -29,6 +32,9 @@
                             <td th:text="${contract.getFio()}"></td>
                             <td th:text="${contract.getSignedDate() == null ? '-' : contract.getSignedDate()}"></td>
                             <td th:text="${contract.signedStatus ? 'Подписан' : 'Не подписан'}"></td>
+                            <td th:text="${contract.term}"></td>
+                            <td th:text="${contract.amount}"></td>
+                            <td th:text="${contract.status ? 'Одобрено' : 'Не одобрено'}"></td>
                             <td>
                                 <div th:if="${!contract.getSignedStatus()}">
                                     <a th:href="@{/contract/{id}/sign(id=${contract.id})}"
